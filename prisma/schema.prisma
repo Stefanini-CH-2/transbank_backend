@@ -1,0 +1,120 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Ticket {
+  id                       Int       @id @default(autoincrement())
+  temporal                 DateTime
+  count_change             Int
+  user_change              String
+  temporal_change          DateTime
+  ticket                   String    @unique
+  date_start               DateTime
+  date_planned             DateTime
+  attention_type           String
+  idss                     String
+  miset                    String
+  clase_movimiento         String
+  cod_servicio_descripcion String
+  cod_servicio_tipo        String
+  tipo_gestion             String
+  nombre_gestion           String
+  area                     String
+  service                  String
+  service_code             Json
+  ddll_reported            String
+  adx_serie_reportada      String
+  description              String
+  company                  String
+  division                 String
+  name                     String
+  code                     String
+  email                    String
+  segmento_siebel          String
+  clave_sla                String
+  start_attention_am       String
+  end_attention_am         String
+  start_attention_pm       String
+  end_attention_pm         String
+  days_attention           String
+  business_name            String
+  fantasy_name             String
+  rut_commerce             String
+  region                   String
+  city                     String
+  locality                 String
+  address                  String
+  contact_name             String
+  contact_phone            String
+  contact_email            String
+  code_worker              String
+  code_data_commerce       String
+  validar                  String
+  temp_valid               DateTime
+  validador                String
+  asignador                String
+  temp_asig                DateTime
+  rut_tecnico              String
+  nombre_tecnico           String
+  to                       DateTime
+  ons                      DateTime
+  ce                       DateTime
+  responsable              String
+  rut_responsable          String
+  code_commerce            String
+  correo_responsable       String
+  firma_responsable        String
+  comentario_solucion      String
+  status_cambio            Boolean
+  status_accesorio         String
+  comentario_accesorio     String
+  cant_ev                  Int
+  evidencia_1              String
+  evidencia_2              String
+  evidencia_3              String
+  evidencia_4              String
+  evidencia_5              String
+  evidencia_6              String
+  evidencia_7              String
+  evidencia_8              String
+  evidencia_9              String
+  evidencia_10             String
+  id_ticket                String
+  number                   String
+  tecnico                  String
+  estado_cierre            String
+  adx_categoria_cierre     String
+  adx_codigo_cierre        String
+  adx_equipos_aten_nserie  String
+  adx_equipos_aten_ddll    String
+  adx_equipos_reem_nserie  String
+  adx_equipos_reem_ddll    String
+  adx_fecha_ejecutada      DateTime
+  cerrar_ticket            Boolean
+  solucion                 String
+  numero_cue               String
+  fecha_cue                DateTime
+  contacto                 String
+  comentario_contacto      String
+  temporal_contacto        Int
+  user_contacto            String
+  status_guia              String
+  fecha_escalamiento       DateTime
+  comentario_guia          String
+  temporal_status          DateTime
+  user_status              String
+  solicitud_especial       String
+  createdAt                DateTime? @default(now())
+  updatedAt                DateTime? @updatedAt
+}

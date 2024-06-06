@@ -1,4 +1,4 @@
-export interface ITicket extends Document {
+export interface TicketDto {
     temporal: Date;
     count_change: number;
     user_change: string;
@@ -74,7 +74,7 @@ export interface ITicket extends Document {
     evidencia_8: string;
     evidencia_9: string;
     evidencia_10: string;
-    id: string;
+    id_ticket: string;
     number: string;
     tecnico: string;
     estado_cierre: string;

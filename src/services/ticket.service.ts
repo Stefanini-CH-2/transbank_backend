@@ -1,36 +1,40 @@
-import { ITicket } from "../models/ticket.model";
-import ticketSchema from "../schema/ticket.schema";
+import { PrismaClient } from "@prisma/client";
+import { CreateTicketDto } from "../dto/create.ticket.dto";
 
+const prisma = new PrismaClient()
 
 export async function getAllTickets() {
-    return ticketSchema.find().exec()
+    return prisma.ticket.findMany()
 }
 
 export async function getTicketByTicketNumber(ticketNumber: string) {
-    return ticketSchema.findOne({ ticket: ticketNumber }).exec()
+    return prisma.ticket.findFirst({ where: { ticket: ticketNumber } })
 }
 
 export async function getTicketByDate(startDate: Date, endDate: Date) {
-    return ticketSchema.find({
-        createdAt: {
-            $gte: startDate,
-            $lte: endDate,
+    return prisma.ticket.findMany({
+        where: {
+            createdAt: {
+                gte: startDate,
+                lte: endDate
+            }
         }
-    }).exec()
+    })
 }
 
-export async function createTicket(ticket: ITicket) {
-    return ticketSchema.create(ticket)
+export async function createTicket(ticket: CreateTicketDto) {
+    return prisma.ticket.create({ data: { ...ticket } })
 }
 
-export async function updateTicket(ticketNumber: string, ticket: ITicket) {
+export async function updateTicket(ticketNumber: string, ticket: CreateTicketDto) {
 
-    await ticketSchema.findOneAndUpdate({ ticket: ticketNumber }, { $set: { ...ticket } })
+    await prisma.ticket.update({ where: { ticket: ticketNumber }, data: { ...ticket } })
+    return
 
 }
 
 export async function deleteTicket(ticketNumber: string) {
 
-    await ticketSchema.deleteOne({ ticket: ticketNumber })
+    await prisma.ticket.delete({ where: { ticket: ticketNumber } })
 
 }

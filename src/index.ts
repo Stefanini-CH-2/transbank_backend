@@ -1,14 +1,10 @@
 import { serve } from '@hono/node-server'
 import { Hono } from 'hono'
-import { connectDB } from './db/connection'
-import ticketSchema from './schema/ticket.schema'
-import { ITicket } from './models/ticket.model'
 import 'dotenv/config'
 import { createTicket, deleteTicket, getAllTickets, getTicketByDate, getTicketByTicketNumber, updateTicket } from './services/ticket.service'
+import { CreateTicketDto } from './dto/create.ticket.dto'
 
 const app = new Hono()
-console.log()
-connectDB()
 
 app.get('/api/tickets', async (c) => {
   const tickets = await getAllTickets()
@@ -16,8 +12,6 @@ app.get('/api/tickets', async (c) => {
 })
 
 app.get('/api/tickets/date', async (c) => {
-
-  console.log("Hola Mundo")
 
   const { start_date, end_date } = c.req.query()
 
@@ -33,7 +27,7 @@ app.get('/api/tickets/:ticketNumber', async (c) => {
 })
 
 app.post('/api/tickets', async (c) => {
-  const body = await c.req.json<ITicket>()
+  const body = await c.req.json<CreateTicketDto>()
   await createTicket(body)
   c.status(201)
   return c.json({ "message": "Ticket creado correctamente" })
@@ -41,7 +35,7 @@ app.post('/api/tickets', async (c) => {
 
 app.put('/api/tickets/:ticketNumber', async (c) => {
   const ticketNumber = c.req.param("ticketNumber")
-  const body = await c.req.json<ITicket>()
+  const body = await c.req.json<CreateTicketDto>()
   await updateTicket(ticketNumber, body)
   c.status(200)
   return c.json({ "message": "Ticket actualizado correctamente" })
